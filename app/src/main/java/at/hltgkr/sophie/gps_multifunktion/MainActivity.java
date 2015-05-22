@@ -1,17 +1,21 @@
 package at.hltgkr.sophie.gps_multifunktion;
 
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements LocationListener {
+    private static LocationManager locMan = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        locMan = (LocationManager) getSystemService(LOCATION_SERVICE)
     }
 
     @Override
