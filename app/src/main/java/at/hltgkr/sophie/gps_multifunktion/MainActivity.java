@@ -1,5 +1,6 @@
 package at.hltgkr.sophie.gps_multifunktion;
 
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -34,16 +35,24 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_add) {
+            Intent addIntent = new Intent(this,Add.class);
+            startActivity(addIntent);
+
         }
 
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public void onLocationChanged(Location location) {
+    protected void onPause()
+    {
+        super.onPause();
+    }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        Location loc = locMan.getLastKnownLocation(LocationManager.GPS_PROVIDER);
     }
 
     @Override
