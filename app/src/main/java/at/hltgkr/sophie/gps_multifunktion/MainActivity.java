@@ -1,5 +1,6 @@
 package at.hltgkr.sophie.gps_multifunktion;
 
+import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
@@ -15,7 +16,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        locMan = (LocationManager) getSystemService(LOCATION_SERVICE)
+        locMan = (LocationManager) getSystemService(LOCATION_SERVICE);
     }
 
     @Override
@@ -38,5 +39,25 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 }
