@@ -15,6 +15,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends ActionBarActivity implements LocationListener {
@@ -22,7 +24,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     ArrayList <String[]>funktionen = new ArrayList<>();
     Double latitude;
     Double longitude;
-
+    ArrayList<Double[]> koordinaten;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +54,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             funktionen.add(fkt);
             latitude =  Double.parseDouble(fkt[0]);
             longitude =  Double.parseDouble(fkt[1]);
-
+            koordinaten.add(new Double[]{latitude, longitude});
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,6 +94,24 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     @Override
     public void onLocationChanged(Location location) {
         Location loc = locMan.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        for(int i = 0; i>koordinaten.size()-1; i++)
+        {
+            Double latGPS = location.getLatitude();
+            Double loGPS = location.getLongitude();
+
+
+            Double[] latloList = koordinaten.get(i);
+            if(latGPS==latloList[0]&& loGPS == latloList[1] )
+            {
+                aktFunkt();
+            }
+        }
+    }
+
+    private void aktFunkt() {
+
+
+
     }
 
     @Override
