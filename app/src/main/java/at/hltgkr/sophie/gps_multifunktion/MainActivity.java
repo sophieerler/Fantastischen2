@@ -1,6 +1,6 @@
 package at.hltgkr.sophie.gps_multifunktion;
 
-import android.content.Context;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
@@ -8,12 +8,9 @@ import android.location.LocationManager;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.BaseExpandableListAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -37,15 +34,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         locMan = (LocationManager) getSystemService(LOCATION_SERVICE);
         fillList();
         updateList();
-
-
-
-        String[] values = getResources().getStringArray(R.array.produkte);
-
-        ListView lv = (ListView) findViewById(R.id.list);
-        ListAdapter adapter = new MyAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,R.id.textView1, values);
-
-        lv.setAdapter(adapter);
     }
 
     private void updateList() {
@@ -117,13 +105,50 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             Double[] latloList = koordinaten.get(i);
             if(latGPS==latloList[0]&& loGPS == latloList[1] )
             {
-                aktFunkt();
+                aktFunkt(i);
             }
         }
     }
 
-    private void aktFunkt() {
+    private void aktFunkt(int i) {
+      String[]funkt = funktionen.get(i);
 
+      boolean wlan = Boolean.parseBoolean(funkt[2]);
+      int silent = Integer.parseInt(funkt[3]);
+      int bright = Integer.parseInt(funkt[4]);
+      boolean bluetooth = Boolean.parseBoolean(funkt[5]);
+
+
+      if(wlan)
+      {
+
+      }
+
+
+
+          setBluetooth(bluetooth);
+
+
+
+
+
+
+
+
+
+
+    }
+
+    private void setBluetooth(boolean enable) {
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        boolean isEnabled = bluetoothAdapter.isEnabled();
+        if (enable && !isEnabled) {
+            bluetoothAdapter.enable();
+            Log.i("asdf","Bluetooth");
+        }
+        else if(!enable && isEnabled) {
+           bluetoothAdapter.disable();
+        }
 
 
     }
@@ -142,5 +167,4 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     public void onProviderDisabled(String provider) {
 
     }
-
 }
