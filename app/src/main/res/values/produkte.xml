@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="produkte">
+        <item name="HALLO">Funktionen</item>
+        <item name="WLAN">WLAN</item>
+        <item name="LAUTSTÄRKE">LAUTSTÄRKE</item>
+        <item name="STANDORT">STANDORT</item>
+        <item name="MUSIK">MUSIK</item>
+    </string-array>
+</resources>
