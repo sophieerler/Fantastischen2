@@ -1,5 +1,6 @@
 package at.hltgkr.sophie.gps_multifunktion;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
@@ -7,6 +8,7 @@ import android.location.LocationManager;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -103,13 +105,50 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             Double[] latloList = koordinaten.get(i);
             if(latGPS==latloList[0]&& loGPS == latloList[1] )
             {
-                aktFunkt();
+                aktFunkt(i);
             }
         }
     }
 
-    private void aktFunkt() {
+    private void aktFunkt(int i) {
+      String[]funkt = funktionen.get(i);
 
+      boolean wlan = Boolean.parseBoolean(funkt[2]);
+      int silent = Integer.parseInt(funkt[3]);
+      int bright = Integer.parseInt(funkt[4]);
+      boolean bluetooth = Boolean.parseBoolean(funkt[5]);
+
+
+      if(wlan)
+      {
+
+      }
+
+
+
+          setBluetooth(bluetooth);
+
+
+
+
+
+
+
+
+
+
+    }
+
+    private void setBluetooth(boolean enable) {
+        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        boolean isEnabled = bluetoothAdapter.isEnabled();
+        if (enable && !isEnabled) {
+            bluetoothAdapter.enable();
+            Log.i("asdf","Bluetooth");
+        }
+        else if(!enable && isEnabled) {
+           bluetoothAdapter.disable();
+        }
 
 
     }

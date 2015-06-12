@@ -1,7 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
+<TableRow>
 
+
+</TableRow>
+
+
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <TextView android:background="@android:drawable/ic_lock_silent_mode" />
+        <SeekBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBar_silent_mode"
+
+            android:layout_weight="1"
+            />
+        <TextView android:background="@android:drawable/ic_lock_silent_mode_off"/>
+
+    </TableRow>
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <TextView android:text="Dunkel"/>
+        <SeekBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBar_brightness"
+
+            android:layout_weight="1"
+            />
+        <TextView android:text="Hell"/>
+
+    </TableRow>
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <TextView android:text="Wlan" />
+        <Switch android:id="@+id/switchWLAN" />
+
+    </TableRow>
+
+
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <TextView android:background="@android:drawable/stat_sys_data_bluetooth" />
+        <Switch android:id="@+id/switchBluetooth"/>
+
+    </TableRow>
+
+
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aktuellen GPS-Koordinaten eintragen"
+            android:id="@+id/button"
+            android:layout_column="1"
+            android:onClick="onClickAdd" />
+            " />
+    </TableRow>
 
 </TableLayout>
