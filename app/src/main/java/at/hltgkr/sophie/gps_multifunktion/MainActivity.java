@@ -1,5 +1,6 @@
 package at.hltgkr.sophie.gps_multifunktion;
 
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
@@ -9,6 +10,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -32,6 +37,15 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         locMan = (LocationManager) getSystemService(LOCATION_SERVICE);
         fillList();
         updateList();
+
+
+
+        String[] values = getResources().getStringArray(R.array.produkte);
+
+        ListView lv = (ListView) findViewById(R.id.list);
+        ListAdapter adapter = new MyAdapter(getApplicationContext(),android.R.layout.simple_list_item_1,R.id.textView1, values);
+
+        lv.setAdapter(adapter);
     }
 
     private void updateList() {
@@ -128,4 +142,5 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     public void onProviderDisabled(String provider) {
 
     }
+
 }
