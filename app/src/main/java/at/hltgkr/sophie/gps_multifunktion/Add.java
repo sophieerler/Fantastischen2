@@ -21,7 +21,8 @@ import java.io.PrintWriter;
  */
 public class Add extends Activity implements LocationListener
 {
-
+String link = "http://javatechig.com/android/how-to-turn-off-turn-on-wifi-in-android";
+String mute = "http://stackoverflow.com/questions/7317974/android-mute-unmute-phone";
     private static LocationManager locMan = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
