@@ -33,7 +33,6 @@ public class Add extends Activity implements LocationListener
     public void onClickAdd(final View view)
     {
 
-        // Unvollständig Daten aus Add.xml fehlen
         String sdState = Environment.getExternalStorageState();
         if(!sdState.equals(Environment.MEDIA_MOUNTED))return;
         File outFile = Environment.getExternalStorageDirectory();
@@ -69,7 +68,8 @@ public class Add extends Activity implements LocationListener
             out.flush();
             out.close();
             finish();
-        }catch(Exception ex){;}
+        }catch(Exception ex){
+            Log.i("nicht erstellt","sd");;}
     }
 
     @Override

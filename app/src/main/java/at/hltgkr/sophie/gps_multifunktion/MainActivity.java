@@ -128,15 +128,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
           setBluetooth(bluetooth);
 
-
-
-
-
-
-
-
-
-
     }
 
     private void setBluetooth(boolean enable) {
