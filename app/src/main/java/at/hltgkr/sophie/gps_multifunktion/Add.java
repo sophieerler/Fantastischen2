@@ -23,7 +23,7 @@ public class Add extends Activity implements LocationListener
 {
 String link = "http://javatechig.com/android/how-to-turn-off-turn-on-wifi-in-android";
 String mute = "http://stackoverflow.com/questions/7317974/android-mute-unmute-phone";
-    private static LocationManager locMan = null;
+    private static LocationManager locMan;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +38,9 @@ String mute = "http://stackoverflow.com/questions/7317974/android-mute-unmute-ph
         if(!sdState.equals(Environment.MEDIA_MOUNTED))return;
         File outFile = Environment.getExternalStorageDirectory();
         String path = outFile.getAbsolutePath();
-        Log.i("pfad",path);
+
         String fullname = path + "/Multifunktionswerkzeug.csv";
+        Log.i("pfad",fullname);
         Switch wlanSwitch = (Switch)findViewById(R.id.switchWLAN);
         boolean wlan = wlanSwitch.isChecked();
         SeekBar laut = (SeekBar) findViewById(R.id.seekBar_silent_mode);
@@ -51,26 +52,35 @@ String mute = "http://stackoverflow.com/questions/7317974/android-mute-unmute-ph
         try
         {
 
-            File f = new File(path);
-            f.createNewFile();
+            File f = new File(fullname);
+
+
 
             if(!f.exists()) {
 
                 f.createNewFile();
                 Log.i("erstellt","sd");
             }
+            Log.i("asd",  " " + locMan);
             Location loc = locMan.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Log.i("asd",  " " + loc);
             double latitude = loc.getLatitude();
             double longitude = loc.getLongitude();
-
+            Log.i("asd", latitude+ " " + longitude);
             PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(fullname)));
-            out.println(""+latitude+";"+longitude+";"+wlan+";"+silent_mode+";"+brightness_mode+";"+bluetooth); // Add daten hinzufügen
+            out.println(latitude+";"+longitude+";"+wlan+";"+silent_mode+";"+brightness_mode+";"+bluetooth); // Add daten hinzufügen
 
             out.flush();
             out.close();
             finish();
         }catch(Exception ex){
-            Log.i("nicht erstellt","sd");;}
+            Log.i("nicht erstellt",""+ex);}
+    }
+
+    protected void onResume()
+    {
+        super.onResume();
+        locMan.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000,0, this);
     }
 
     @Override
@@ -92,4 +102,5 @@ String mute = "http://stackoverflow.com/questions/7317974/android-mute-unmute-ph
     public void onProviderDisabled(String provider) {
 
     }
+
 }
