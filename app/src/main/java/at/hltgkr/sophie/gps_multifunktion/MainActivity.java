@@ -26,7 +26,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     ArrayList <String[]>funktionen = new ArrayList<>();
     Double latitude;
     Double longitude;
-    ArrayList<double[]> koordinaten;
+    ArrayList<double[]> koordinaten = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,19 +102,27 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         super.onPause();
         locMan.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, this);
     }
+    protected void onResume()
+    {
+        super.onResume();
+        locMan.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, this);
+    }
 
     @Override
     public void onLocationChanged(Location location) {
         Location loc = locMan.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        for(int i = 0; i>koordinaten.size()-1; i++)
+        Log.i("aktuelle","FUFu "+koordinaten.size());
+
+        for(int i = 0; i<koordinaten.size(); i++)
         {
             Double latGPS = location.getLatitude();
             Double loGPS = location.getLongitude();
-
+            Log.i("aktuelle","FUFUFUFUFUFU");
 
             double[] latloList = koordinaten.get(i);
             if(latGPS==latloList[0]&& loGPS == latloList[1] )
             {
+                Log.i("aktuelle","FUnktionen");
                 aktFunkt(i);
             }
         }
@@ -131,10 +139,10 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
 
 
-          setWifi(wlan);
-
+          setWifi(!wlan);
+        Log.i("aktuelle","FUnktionen WLAN");
           setBluetooth(bluetooth);
-
+        Log.i("aktuelle","FUnktionen bluetooth");
     }
 
     private void setBluetooth(boolean enable) {
@@ -147,8 +155,13 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             bluetoothAdapter.disable();
         }
     }
+
+
+
+
+
         public void setWifi(boolean status) {
-            WifiManager wifiManager = (WifiManager) this
+               WifiManager wifiManager = (WifiManager) this
                     .getSystemService(Context.WIFI_SERVICE);
             if (status == true && !wifiManager.isWifiEnabled()) {
                 wifiManager.setWifiEnabled(true);
