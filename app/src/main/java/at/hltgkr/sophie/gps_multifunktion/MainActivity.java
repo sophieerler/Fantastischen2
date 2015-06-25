@@ -53,15 +53,15 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         {
             br = new BufferedReader(new FileReader(fullname));
             while ((line = br.readLine()) != null) {
-                 String[]fkt = line.split(";");
-                    Log.i(line,"");
+                String[]fkt = line.split(";");
+                Log.i(line,"");
                 funktionen.add(fkt);
 
                 latitude =  Double.valueOf(fkt[0]).doubleValue();
                 longitude =  Double.valueOf(fkt[1]).doubleValue();
                 Log.i(""+latitude,""+longitude);
 
-                    double[] doublearr = {latitude, longitude};
+                double[] doublearr = {latitude, longitude};
                 koordinaten.add(doublearr);
             }
         } catch (IOException e) {
@@ -117,9 +117,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         {
             Double latGPS = location.getLatitude();
             Double loGPS = location.getLongitude();
-            Log.i("aktuelle","FUFUFUFUFUFU");
+            Log.i("aktuelle",""+latGPS + " "+loGPS);
+
+
 
             double[] latloList = koordinaten.get(i);
+            Log.i("aktuelle", ""+latloList[0]+ " "+latloList[1]);
             if(latGPS==latloList[0]&& loGPS == latloList[1] )
             {
                 Log.i("aktuelle","FUnktionen");
@@ -174,7 +177,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
+     public void onStatusChanged(String provider, int status, Bundle extras) {
 
     }
 
