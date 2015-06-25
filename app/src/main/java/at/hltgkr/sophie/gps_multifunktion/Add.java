@@ -68,10 +68,11 @@ String mute = "http://stackoverflow.com/questions/7317974/android-mute-unmute-ph
             double longitude = loc.getLongitude();
             Log.i("asd", latitude+ " " + longitude);
             PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(fullname)));
-            out.println(latitude+";"+longitude+";"+wlan+";"+silent_mode+";"+brightness_mode+";"+bluetooth); // Add daten hinzufügen
-
+            out.append(latitude+";"+longitude+";"+wlan+";"+silent_mode+";"+brightness_mode+";"+bluetooth); // Add daten hinzufügen
+            out.append("\n");
+            out.append("\r");
             out.flush();
-            out.close();
+
             finish();
         }catch(Exception ex){
             Log.i("nicht erstellt",""+ex);}
