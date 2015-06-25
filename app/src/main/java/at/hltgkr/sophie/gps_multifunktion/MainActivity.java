@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,8 +26,8 @@ import java.util.ArrayList;
 public class MainActivity extends ActionBarActivity implements LocationListener {
     private static LocationManager locMan;
     ArrayList <String[]>funktionen = new ArrayList<>();
-    Double latitude;
-    Double longitude;
+
+
     ArrayList<double[]> koordinaten = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +56,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
             br = new BufferedReader(new FileReader(fullname));
             while ((line = br.readLine()) != null) {
                 String[]fkt = line.split(";");
-                Log.i(line,"");
-                funktionen.add(fkt);
 
-                latitude =  Double.valueOf(fkt[0]).doubleValue();
-                longitude =  Double.valueOf(fkt[1]).doubleValue();
+                funktionen.add(fkt);
+                fkt[0].replace(" ","");
+                Log.i(fkt[0], "");
+                Double latitude = 37.422005;                       //Double.parseDouble(fkt[0]);
+                Double longitude = -122.084095;                  //Double.valueOf(fkt[1]).doubleValue();
                 Log.i(""+latitude,""+longitude);
 
                 double[] doublearr = {latitude, longitude};
@@ -70,7 +72,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         }
         catch (NullPointerException ex)
         {
-
+            Log.i("asdsda",""+ex);
         }
     }
 
@@ -135,32 +137,37 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     private void aktFunkt(int i) {
       String[]funkt = funktionen.get(i);
 
-      boolean wlan = Boolean.parseBoolean(funkt[2]);
-      int silent = Integer.parseInt(funkt[3]);
-      int bright = Integer.parseInt(funkt[4]);
-      boolean bluetooth = Boolean.parseBoolean(funkt[5]);
+      boolean wlan = true;//Boolean.parseBoolean(funkt[2]);
+      int silent = 100;//Integer.parseInt(funkt[3]);
+      int bright = 50; //Integer.parseInt(funkt[4]);
+      boolean bluetooth = true;//Boolean.parseBoolean(funkt[5]);
 
 
 
 
-          setWifi(!wlan);
-        Log.i("aktuelle","FUnktionen WLAN");
+          setWifi(wlan);
+        Log.i("aktuelle", "FUnktionen WLAN");
           setBluetooth(bluetooth);
         Log.i("aktuelle","FUnktionen bluetooth");
+
     }
 
     private void setBluetooth(boolean enable) {
-        BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        boolean isEnabled = bluetoothAdapter.isEnabled();
-        if (enable && !isEnabled) {
-            bluetoothAdapter.enable();
-            Log.i("asdf", "Bluetooth");
-        } else if (!enable && isEnabled) {
-            bluetoothAdapter.disable();
+
+        try {
+            BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            boolean isEnabled = bluetoothAdapter.isEnabled();
+            if (enable && !isEnabled) {
+                bluetoothAdapter.enable();
+                Log.i("asdf", "Bluetooth");
+            } else if (!enable && isEnabled) {
+                bluetoothAdapter.disable();
+            }
+        } catch (NullPointerException ex) {
+            Toast.makeText(this,"Bluetooth eingeschaltet", Toast.LENGTH_LONG).show();
         }
+
     }
-
-
 
 
 
@@ -169,8 +176,11 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
                     .getSystemService(Context.WIFI_SERVICE);
             if (status == true && !wifiManager.isWifiEnabled()) {
                 wifiManager.setWifiEnabled(true);
+                Toast.makeText(this,"WLan eingeschaltet", Toast.LENGTH_LONG).show();
+
             } else if (status == false && wifiManager.isWifiEnabled()) {
                 wifiManager.setWifiEnabled(false);
+
             }
         }
 
@@ -194,7 +204,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
 
 
 
-    public void changeRingerMode(Context context){
+    /*public void changeRingerMode(Context context){
 
         AudioManager audio = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
@@ -209,7 +219,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         audioManager.setStreamVolume(AudioManager.STREAM_RING, maxVolume, AudioManager.FLAG_SHOW_UI + AudioManager.FLAG_PLAY_SOUND);
         audio.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 
-    }
+    }*/
 
 
 }

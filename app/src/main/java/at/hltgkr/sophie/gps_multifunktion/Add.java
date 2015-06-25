@@ -33,9 +33,11 @@ String mute = "http://stackoverflow.com/questions/7317974/android-mute-unmute-ph
 
     public void onClickAdd(final View view)
     {
-
+        Log.i("pfad","seas");
         String sdState = Environment.getExternalStorageState();
+        Log.i("pfad", ""+sdState);
         if(!sdState.equals(Environment.MEDIA_MOUNTED))return;
+        Log.i("pfad","seas");
         File outFile = Environment.getExternalStorageDirectory();
         String path = outFile.getAbsolutePath();
 
@@ -67,10 +69,10 @@ String mute = "http://stackoverflow.com/questions/7317974/android-mute-unmute-ph
             double latitude = loc.getLatitude();
             double longitude = loc.getLongitude();
             Log.i("asd", latitude+ " " + longitude);
-            PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(fullname)));
-            out.append(latitude+";"+longitude+";"+wlan+";"+silent_mode+";"+brightness_mode+";"+bluetooth); // Add daten hinzufügen
-            out.append("\n");
-            out.append("\r");
+            PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(fullname,true)));
+            out.write(latitude+";"+longitude+";"+wlan+";"+silent_mode+";"+brightness_mode+";"+bluetooth+"\r ");  // Add daten hinzufügen
+
+
             out.flush();
 
             finish();
