@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.AudioManager;
 import android.net.wifi.WifiManager;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
@@ -111,7 +112,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     @Override
     public void onLocationChanged(Location location) {
         Location loc = locMan.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        Log.i("aktuelle","FUFu "+koordinaten.size());
+        Log.i("aktuelle", "FUFu " + koordinaten.size());
 
         for(int i = 0; i<koordinaten.size(); i++)
         {
@@ -187,4 +188,25 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     public void onProviderDisabled(String provider) {
 
     }
+
+
+
+    public void changeRingerMode(Context context){
+
+        AudioManager audio = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+
+        AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+        audio.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+
+        AudioManager audioManagerRing = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+        int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+
+        audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+        audioManager.setStreamVolume(AudioManager.STREAM_RING, maxVolume, AudioManager.FLAG_SHOW_UI + AudioManager.FLAG_PLAY_SOUND);
+        audio.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+
+    }
+
+
 }

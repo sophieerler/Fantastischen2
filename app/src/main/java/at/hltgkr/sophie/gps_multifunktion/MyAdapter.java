@@ -35,7 +35,7 @@ public class MyAdapter extends ArrayAdapter<String> {
         } else if (values[position].equals("LAUTSTÄRKE")) {
            img.setImageResource(android.R.drawable.ic_lock_silent_mode);
         } else if (values[position].equals("WLAN")) {
-            img.setImageResource(android.R.drawable.ic_input_add);
+            img.setImageResource(R.drawable.index);
         } else if (values[position].equals("MUSIK")) {
             img.setImageResource(R.drawable.musik);
         }else if (values[position].equals("Standort"))
